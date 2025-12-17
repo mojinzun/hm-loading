@@ -1,5 +1,7 @@
+import { CommonConstants } from "../constants/CommonConstants";
 import { DelayConstant } from "../constants/DelayConstant";
 import { DurationConstant } from "../constants/DurationConstant";
+import { OpacityConstants } from "../constants/OpacityConstants";
 import { SpinKit } from "../model/SpinKit";
 import { SizeStyle } from "../model/Style";
 import { SpinKitVM } from "../viewmodel/SpinKitVM";
@@ -10,17 +12,16 @@ import { SpinKitVM } from "../viewmodel/SpinKitVM";
 @ComponentV2
 export struct FoldingCube {
   @Param @Require color: ResourceColor;
-  @Param mSpinKit: SpinKit[] = Array.from<number, SpinKit>({ length: 4 }, () => new SpinKit())
   @Param mSize: SizeStyle | number = SizeStyle.NORMAL
   @Local vm: SpinKitVM = new SpinKitVM()
 
   aboutToAppear(): void {
-    this.vm.getSpinKitSize(this.mSize)
+    this.vm.initSpinKit(4, this.mSize)
   }
 
   build() {
     Stack() {
-      ForEach(this.mSpinKit, (item: SpinKit, index: number) => {
+      ForEach(this.vm.spinKit, (item: SpinKit, index: number) => {
         Canvas()
           .width(this.vm.width / 2)
           .height(this.vm.height / 2)
@@ -28,47 +29,48 @@ export struct FoldingCube {
           .position({ x: index % 2 === 0 ? 0 : this.vm.width / 2, y: index > 1 ? this.vm.height / 2 : 0 })
           .opacity(item.opacity)
           .rotate({
-            x: index === 1 || index === 2 ? 1 : 0,
-            y: index === 0 || index === 3 ? 1 : 0,
+            x: index === 1 || index === 2 ? CommonConstants.ROTATE_AXIS_1 : CommonConstants.ROTATE_AXIS_0,
+            y: index === 0 || index === 3 ? CommonConstants.ROTATE_AXIS_1 : CommonConstants.ROTATE_AXIS_0,
             centerX: index === 0 ? this.vm.width / 2 : 0,
             centerY: index === 1 ? this.vm.height / 2 : 0,
             angle: item.rotate
           })
       })
     }
-    .rotate({ angle: -45 })
+    .rotate({ angle: CommonConstants.NEGATIVE_ROTATE_45 })
     .onAppear(() => {
       const keyframe = [() => {
-        this.mSpinKit[1].rotate = 180
-        this.mSpinKit[1].opacity = 0
+        this.vm.spinKit[1].rotate = CommonConstants.ROTATE_180
+        this.vm.spinKit[1].opacity = OpacityConstants.HIDDEN
       }, () => {
-        this.mSpinKit[1].rotate = 0
-        this.mSpinKit[3].rotate = 180
-        this.mSpinKit[3].opacity = 0
+        this.vm.spinKit[1].rotate = CommonConstants.ROTATE_0
+        this.vm.spinKit[3].rotate = CommonConstants.ROTATE_180
+        this.vm.spinKit[3].opacity = OpacityConstants.HIDDEN
       }, () => {
-        this.mSpinKit[3].rotate = 0
-        this.mSpinKit[2].rotate = 180
-        this.mSpinKit[2].opacity = 0
+        this.vm.spinKit[3].rotate = CommonConstants.ROTATE_0
+        this.vm.spinKit[2].rotate = CommonConstants.ROTATE_180
+        this.vm.spinKit[2].opacity = OpacityConstants.HIDDEN
       }, () => {
-        this.mSpinKit[2].rotate = 0
-        this.mSpinKit[0].rotate = 180
+        this.vm.spinKit[2].rotate = CommonConstants.ROTATE_0
+        this.vm.spinKit[0].rotate = CommonConstants.ROTATE_180
       }, () => {
-        this.mSpinKit[1].opacity = 1
-        this.mSpinKit[1].rotate = 180
+        this.vm.spinKit[1].opacity = OpacityConstants.VISIBLE
+        this.vm.spinKit[1].rotate = CommonConstants.ROTATE_180
       }, () => {
-        this.mSpinKit[3].opacity = 1
-        this.mSpinKit[3].rotate = 180
+        this.vm.spinKit[3].opacity = OpacityConstants.VISIBLE
+        this.vm.spinKit[3].rotate = CommonConstants.ROTATE_180
       }, () => {
-        this.mSpinKit[2].opacity = 1
-        this.mSpinKit[2].rotate = 180
+        this.vm.spinKit[2].opacity = OpacityConstants.VISIBLE
+        this.vm.spinKit[2].rotate = CommonConstants.ROTATE_180
       }, () => {
       }];
       this.getUIContext()
-        .keyframeAnimateTo({ iterations: -1, delay: DelayConstant.DELAY_0 }, keyframe.map<KeyframeState>(animate => ({
-          duration: DurationConstant.DURATION_300,
-          curve: Curve.Linear,
-          event: animate
-        })))
+        .keyframeAnimateTo({ iterations: CommonConstants.ANIMATION_ITERATIONS, delay: DelayConstant.DELAY_0 },
+          keyframe.map<KeyframeState>(animate => ({
+            duration: DurationConstant.DURATION_300,
+            curve: Curve.Linear,
+            event: animate
+          })))
     })
   }
 }

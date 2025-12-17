@@ -19,12 +19,20 @@ export class CommonConstants {
   public static readonly NEGATIVE_ROTATE_45 = -45
   // 旋转90角度
   public static readonly ROTATE_90 = 90
+  // 旋转-90角度
+  public static readonly NEGATIVE_ROTATE_90 = -90
   // 旋转180角度
   public static readonly ROTATE_180 = 180
+  // 旋转360角度
+  public static readonly ROTATE_360 = 360
   // 旋转-180角度
   public static readonly NEGATIVE_ROTATE_180 = -180
   // 旋转轴向量坐标（默认值1）
   public static readonly ROTATE_AXIS_1 = 1
   // 旋转轴向量坐标（默认值0）
   public static readonly ROTATE_AXIS_0 = 0
+  // 缩放值（0.4）
+  public static readonly SCALE_0_4 = 0.4
+  // 缩放值（0.5）
+  public static readonly SCALE_0_5 = 0.5
 }

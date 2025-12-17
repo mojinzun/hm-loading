@@ -1,5 +1,7 @@
+import { CommonConstants } from "../constants/CommonConstants";
 import { DelayConstant } from "../constants/DelayConstant";
 import { DurationConstant } from "../constants/DurationConstant";
+import { OpacityConstants } from "../constants/OpacityConstants";
 import { SpinKit } from "../model/SpinKit";
 import { SizeStyle } from "../model/Style";
 import { SpinKitVM } from "../viewmodel/SpinKitVM";
@@ -12,23 +14,22 @@ import { SpinKitVM } from "../viewmodel/SpinKitVM";
 export struct FadingCircle {
   @Require @Param mSize: SizeStyle | number = SizeStyle.NORMAL;
   @Require @Param color: ResourceColor;
-  @Local spinkit: SpinKit[] = Array.from<number, SpinKit>({ length: 12 }, () => new SpinKit());
   @Local vm: SpinKitVM = new SpinKitVM()
-  private centerX: number = 20; // 环形中心X坐标
-  private centerY: number = 20; // 环形中心Y坐标
-  private radius: number = 20; // 环形半径
-  private ballCount: number = 12; // 小球数量
-  private ballSize: number = 5.6; // 小球直径
+  private centerX: number = 0; // 环形中心X坐标
+  private centerY: number = 0; // 环形中心Y坐标
+  private radius: number = 0; // 环形半径
+  private ballCount: number = 0; // 小球数量
+  private ballSize: number = 0; // 小球直径
 
   aboutToAppear(): void {
-    this.vm.getSpinKitSize(this.mSize)
+    this.vm.initSpinKit(12,this.mSize)
     this.initDraw()
   }
 
   build() {
     Stack() {
       // 动态生成环形小球
-      ForEach(this.spinkit, (item: SpinKit, index) => {
+      ForEach(this.vm.spinKit, (item: SpinKit, index) => {
         // 绘制小球
         Circle({ width: this.ballSize, height: this.ballSize })
           .fill(this.color)
@@ -39,23 +40,27 @@ export struct FadingCircle {
     .width(this.vm.width)
     .height(this.vm.height)
     .onAppear(() => {
-      this.spinkit.forEach((item: SpinKit, index: number) => {
-        this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: index * DelayConstant.DELAY_100 }, [
-          {
-            duration: DurationConstant.DURATION_1000,
-            curve: Curve.EaseInOut,
-            event: () => {
-              item.opacity = 1
+      this.vm.spinKit.forEach((item: SpinKit, index: number) => {
+        this.getUIContext()
+          .keyframeAnimateTo({
+            iterations: CommonConstants.ANIMATION_ITERATIONS,
+            delay: index * DelayConstant.DELAY_100
+          }, [
+            {
+              duration: DurationConstant.DURATION_1000,
+              curve: Curve.EaseInOut,
+              event: () => {
+                item.opacity = OpacityConstants.VISIBLE
+              }
+            },
+            {
+              duration: DurationConstant.DURATION_200,
+              curve: Curve.EaseInOut,
+              event: () => {
+                item.opacity = OpacityConstants.HIDDEN
+              }
             }
-          },
-          {
-            duration: DurationConstant.DURATION_200,
-            curve: Curve.EaseInOut,
-            event: () => {
-              item.opacity = 0
-            }
-          }
-        ])
+          ])
       })
     })
   }
@@ -68,7 +73,8 @@ export struct FadingCircle {
     this.centerY = this.vm.height / 2;
     this.radius = this.vm.height / 2;
     this.ballSize = this.vm.height * 0.14
-    this.spinkit.forEach((item: SpinKit) => {
+    this.ballCount = this.vm.spinKit.length
+    this.vm.spinKit.forEach((item: SpinKit) => {
       item.opacity = 0
     })
   }

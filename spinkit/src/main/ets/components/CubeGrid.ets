@@ -2,8 +2,13 @@ import { CommonConstants } from "../constants/CommonConstants";
 import { DelayConstant } from "../constants/DelayConstant";
 import { DurationConstant } from "../constants/DurationConstant";
 import { SpinKit } from "../model/SpinKit";
-import { SizeStyle } from "../model/Style";
+import { ScaleStyle, SizeStyle } from "../model/Style";
 import { SpinKitVM } from "../viewmodel/SpinKitVM";
+
+interface KeyframeAnimate {
+  indices: number[]
+  delay: number
+}
 
 /**
  * 立方体网格动画
@@ -12,18 +17,15 @@ import { SpinKitVM } from "../viewmodel/SpinKitVM";
 export struct CubeGrid {
   @Require @Param mSize: SizeStyle | number = SizeStyle.NORMAL;
   @Require @Param color: ResourceColor;
-  @Local spinkit: SpinKit[] =
-    [new SpinKit(), new SpinKit(), new SpinKit(), new SpinKit(), new SpinKit(), new SpinKit(), new SpinKit(),
-      new SpinKit(), new SpinKit()]
   @Local vm: SpinKitVM = new SpinKitVM()
 
   aboutToAppear(): void {
-    this.vm.getSpinKitSize(this.mSize)
+    this.vm.initSpinKit(9, this.mSize)
   }
 
   build() {
     Grid() {
-      ForEach(this.spinkit, (item: SpinKit) => {
+      ForEach(this.vm.spinKit, (item: SpinKit) => {
         GridItem() {
           Canvas()
             .width(CommonConstants.FULL_SCREEN_WIDTH)
@@ -37,7 +39,6 @@ export struct CubeGrid {
     .height(this.vm.height)
     .rowsTemplate('1fr 1fr 1fr')
     .columnsTemplate('1fr 1fr 1fr')
-
     .onAppear(() => {
       // 定义动画序列配置
       const animations: KeyframeAnimate[] = [
@@ -51,7 +52,7 @@ export struct CubeGrid {
       // 循环创建并启动动画
       animations.forEach((item: KeyframeAnimate) => {
         this.getUIContext().keyframeAnimateTo(
-          { iterations: -1, delay: item.delay },
+          { iterations: CommonConstants.ANIMATION_ITERATIONS, delay: item.delay },
           this.createKeyframes(item.indices)
         );
       });
@@ -67,18 +68,18 @@ export struct CubeGrid {
         duration: DurationConstant.DURATION_500,
         curve: Curve.EaseInOut,
         event: () => {
-          indices.forEach(index => this.spinkit[index].scale = 0);
+          indices.forEach(index => this.vm.spinKit[index].scale = ScaleStyle.SMALL);
         }
       },
       {
         duration: DurationConstant.DURATION_500,
         curve: Curve.Linear,
         event: () => {
-          indices.forEach(index => this.spinkit[index].scale = 1);
+          indices.forEach(index => this.vm.spinKit[index].scale = ScaleStyle.NORMAL);
         }
       },
       {
-        duration: 400,
+        duration: DurationConstant.DURATION_400,
         curve: Curve.Linear,
         event: () => {
 
@@ -86,9 +87,4 @@ export struct CubeGrid {
       }
     ];
   }
-}
-
-interface KeyframeAnimate {
-  indices: number[]
-  delay: number
 }

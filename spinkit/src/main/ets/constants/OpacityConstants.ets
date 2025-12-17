@@ -12,6 +12,8 @@ export class OpacityConstants {
   public static readonly HALF_TRANSPARENT = 0.5
   /** 五分之三不透明 */
   public static readonly THREE_FIFTHS_OPAQUE = 0.6
+  /** 透明度0.7 */
+  public static readonly SEVEN_FIFTHS_OPAQUE = 0.7
   /** 五分之四不透明 */
   public static readonly FOUR_FIFTHS_OPAQUE = 0.8
   /** 完全不透明 */

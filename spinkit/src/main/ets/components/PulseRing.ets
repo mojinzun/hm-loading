@@ -1,5 +1,7 @@
 import { CommonConstants } from "../constants/CommonConstants";
+import { DelayConstant } from "../constants/DelayConstant";
 import { DurationConstant } from "../constants/DurationConstant";
+import { OpacityConstants } from "../constants/OpacityConstants";
 import { SpinKit } from "../model/SpinKit";
 import { ScaleStyle, SizeStyle } from "../model/Style";
 import { SpinKitVM } from "../viewmodel/SpinKitVM";
@@ -11,42 +13,46 @@ import { SpinKitVM } from "../viewmodel/SpinKitVM";
 export struct PulseRing {
   @Require @Param mSize: SizeStyle | number = SizeStyle.NORMAL
   @Require @Param color: ResourceColor;
-  @Local spinkit: SpinKit[] = [new SpinKit()]
+  @Local mSpinKit: SpinKit = new SpinKit()
   @Local vm: SpinKitVM = new SpinKitVM()
 
   aboutToAppear(): void {
-    this.spinkit[0].scale = ScaleStyle.SMALL
     this.vm.getSpinKitSize(this.mSize)
+    this.mSpinKit.scale = ScaleStyle.SMALL
   }
 
   build() {
     Stack() {
-      ForEach(this.spinkit, (item: SpinKit) => {
-        Canvas()
-          .width(CommonConstants.FULL_SCREEN_WIDTH)
-          .height(CommonConstants.FULL_SCREEN_HEIGHT)
-          .opacity(item.opacity)
-          .borderRadius(this.vm.width)
-          .border({ width: 2, color: this.color })
-          .scale({ x: item.scale, y: item.scale })
-      })
+      Canvas()
+        .width(CommonConstants.FULL_SCREEN_WIDTH)
+        .height(CommonConstants.FULL_SCREEN_HEIGHT)
+        .opacity(this.mSpinKit.opacity)
+        .borderRadius(this.vm.width)
+        .border({ width: 2, color: this.color })
+        .scale({ x: this.mSpinKit.scale, y: this.mSpinKit.scale })
     }
     .width(this.vm.width)
     .height(this.vm.height)
     .renderFit(RenderFit.CENTER)
     .onAppear(() => {
-      this.spinkit.forEach((item: SpinKit, index: number) => {
-        this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: (index + 1) * 200 }, [
+      this.getUIContext()
+        .keyframeAnimateTo({ iterations: CommonConstants.ANIMATION_ITERATIONS, delay: DelayConstant.DELAY_0 }, [
           {
-            duration: DurationConstant.DURATION_1000,
+            duration: DurationConstant.DURATION_700,
             curve: Curve.LinearOutSlowIn,
             event: () => {
-              item.scale = ScaleStyle.NORMAL;
-              item.opacity = 0.7
+              this.mSpinKit.scale = ScaleStyle.NORMAL;
+              this.mSpinKit.opacity = OpacityConstants.SEVEN_FIFTHS_OPAQUE
+            }
+          },
+          {
+            duration: DurationConstant.DURATION_300,
+            curve: Curve.LinearOutSlowIn,
+            event: () => {
+              this.mSpinKit.opacity = OpacityConstants.HIDDEN
             }
           }
         ]);
-      })
     })
   }
 }
