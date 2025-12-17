@@ -5,9 +5,13 @@
 export class SpinKit {
   /** 平面旋转角度（顺时针为正） */
   @Trace rotate: number = 0;
-  /** X轴旋转角度 */
+  /** X轴旋转角度
+   * --API20及以上版本支持
+   * --API20以下版本仅作为旋转轴向量坐标 */
   @Trace rotateX: number = 0;
-  /** Y轴旋转角度 */
+  /** Y轴旋转角度
+   * --API20及以上版本支持
+   * --API20以下版本仅作为旋转轴 */
   @Trace rotateY: number = 0;
   /** 组件缩放 */
   @Trace scale: number = 1;
