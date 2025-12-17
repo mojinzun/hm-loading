@@ -1,4 +1,5 @@
 import { CommonConstants } from "../constants/CommonConstants";
+import { DelayConstant } from "../constants/DelayConstant";
 import { DurationConstant } from "../constants/DurationConstant";
 import { SpinKit } from "../model/SpinKit";
 import { ScaleStyle, SizeStyle } from "../model/Style";
@@ -11,17 +12,16 @@ import { SpinKitVM } from "../viewmodel/SpinKitVM";
 export struct DoubleBounce {
   @Require @Param mSize: SizeStyle | number = SizeStyle.NORMAL
   @Require @Param color: ResourceColor;
-  @Local spinkit: SpinKit[] = [new SpinKit(), new SpinKit()]
   @Local vm: SpinKitVM = new SpinKitVM()
 
   aboutToAppear(): void {
-    this.spinkit[0].scale = ScaleStyle.SMALL
-    this.vm.getSpinKitSize(this.mSize)
+    this.vm.initSpinKit(2, this.mSize)
+    this.vm.spinKit[0].scale = ScaleStyle.SMALL
   }
 
   build() {
     Stack() {
-      ForEach(this.spinkit, (item: SpinKit) => {
+      ForEach(this.vm.spinKit, (item: SpinKit) => {
         Canvas()
           .width(CommonConstants.FULL_SCREEN_WIDTH)
           .height(CommonConstants.FULL_SCREEN_HEIGHT)
@@ -34,24 +34,25 @@ export struct DoubleBounce {
     .width(this.vm.width)
     .height(this.vm.height)
     .onAppear(() => {
-      this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: 0 }, [
-        {
-          duration: DurationConstant.DURATION_1000,
-          curve: Curve.EaseInOut,
-          event: () => {
-            this.spinkit[0].scale = ScaleStyle.NORMAL;
-            this.spinkit[1].scale = ScaleStyle.SMALL;
+      this.getUIContext()
+        .keyframeAnimateTo({ iterations: CommonConstants.ANIMATION_ITERATIONS, delay: DelayConstant.DELAY_0 }, [
+          {
+            duration: DurationConstant.DURATION_1000,
+            curve: Curve.EaseInOut,
+            event: () => {
+              this.vm.spinKit[0].scale = ScaleStyle.NORMAL;
+              this.vm.spinKit[1].scale = ScaleStyle.SMALL;
+            }
+          },
+          {
+            duration: DurationConstant.DURATION_1000,
+            curve: Curve.EaseInOut,
+            event: () => {
+              this.vm.spinKit[0].scale = ScaleStyle.SMALL;
+              this.vm.spinKit[1].scale = ScaleStyle.NORMAL;
+            }
           }
-        },
-        {
-          duration: DurationConstant.DURATION_1000,
-          curve: Curve.EaseInOut,
-          event: () => {
-            this.spinkit[0].scale = ScaleStyle.SMALL;
-            this.spinkit[1].scale = ScaleStyle.NORMAL;
-          }
-        }
-      ]);
+        ]);
     })
   }
 }

@@ -1,5 +1,7 @@
 import { CommonConstants } from "../constants/CommonConstants";
+import { DelayConstant } from "../constants/DelayConstant";
 import { DurationConstant } from "../constants/DurationConstant";
+import { OpacityConstants } from "../constants/OpacityConstants";
 import { SpinKit } from "../model/SpinKit";
 import { ScaleStyle, SizeStyle } from "../model/Style";
 import { SpinKitVM } from "../viewmodel/SpinKitVM";
@@ -11,20 +13,16 @@ import { SpinKitVM } from "../viewmodel/SpinKitVM";
 export struct MultiplePulse {
   @Require @Param mSize: SizeStyle | number = SizeStyle.NORMAL
   @Require @Param color: ResourceColor;
-  @Local spinkit: SpinKit[] = [new SpinKit(), new SpinKit(), new SpinKit()]
   @Local vm: SpinKitVM = new SpinKitVM()
 
   aboutToAppear(): void {
-    // todo 可以在vm中定义一个方法处理数组中的缩放值
-    this.spinkit[0].scale = ScaleStyle.SMALL
-    this.spinkit[1].scale = ScaleStyle.SMALL;
-    this.spinkit[2].scale = ScaleStyle.SMALL;
-    this.vm.getSpinKitSize(this.mSize)
+    this.vm.initSpinKit(3, this.mSize)
+    this.vm.initSpinKitScale()
   }
 
   build() {
     Stack() {
-      ForEach(this.spinkit, (item: SpinKit) => {
+      ForEach(this.vm.spinKit, (item: SpinKit) => {
         Canvas()
           .width(CommonConstants.FULL_SCREEN_WIDTH)
           .height(CommonConstants.FULL_SCREEN_HEIGHT)
@@ -38,17 +36,21 @@ export struct MultiplePulse {
     .height(this.vm.height)
     .renderFit(RenderFit.CENTER)
     .onAppear(() => {
-      this.spinkit.forEach((item: SpinKit, index: number) => {
-        this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: (index + 1) * 200 }, [
-          {
-            duration: DurationConstant.DURATION_1000,
-            curve: Curve.EaseInOut,
-            event: () => {
-              item.scale = ScaleStyle.NORMAL;
-              item.opacity = 0;
+      this.vm.spinKit.forEach((item: SpinKit, index: number) => {
+        this.getUIContext()
+          .keyframeAnimateTo({
+            iterations: CommonConstants.ANIMATION_ITERATIONS,
+            delay: (index + 1) * DelayConstant.DELAY_NEG_200
+          }, [
+            {
+              duration: DurationConstant.DURATION_1000,
+              curve: Curve.EaseInOut,
+              event: () => {
+                item.scale = ScaleStyle.NORMAL;
+                item.opacity = OpacityConstants.HIDDEN;
+              }
             }
-          }
-        ]);
+          ]);
       })
     })
   }

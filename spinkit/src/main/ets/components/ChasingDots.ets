@@ -1,7 +1,8 @@
+import { CommonConstants } from "../constants/CommonConstants";
 import { DelayConstant } from "../constants/DelayConstant";
 import { DurationConstant } from "../constants/DurationConstant";
 import { SpinKit } from "../model/SpinKit";
-import { SizeStyle } from "../model/Style";
+import { ScaleStyle, SizeStyle } from "../model/Style";
 import { SpinKitVM } from "../viewmodel/SpinKitVM";
 
 /**
@@ -11,19 +12,18 @@ import { SpinKitVM } from "../viewmodel/SpinKitVM";
 export struct ChasingDots {
   @Require @Param mSize: SizeStyle | number = SizeStyle.NORMAL;
   @Require @Param color: ResourceColor;
-  @Local spinkit: SpinKit[] = [new SpinKit(), new SpinKit()]
   @Local vm: SpinKitVM = new SpinKitVM()
   @Local dotSize: number = 0
 
   aboutToAppear(): void {
-    this.vm.getSpinKitSize(this.mSize)
-    this.spinkit[0].scale = 0;
+    this.vm.initSpinKit(2, this.mSize)
+    this.vm.spinKit[0].scale = ScaleStyle.SMALL
     this.dotSize = this.vm.width * 0.6
   }
 
   build() {
     Stack() {
-      ForEach(this.spinkit, (item: SpinKit, index: number) => {
+      ForEach(this.vm.spinKit, (item: SpinKit, index: number) => {
         Circle()
           .width(this.dotSize)
           .height(this.dotSize)
@@ -37,12 +37,14 @@ export struct ChasingDots {
     }
     .width(this.vm.width)
     .height(this.vm.width)
-    .rotate({ angle: this.spinkit[0].rotate })
+    .rotate({ angle: this.vm.spinKit[0].rotate })
     .onAppear(() => {
       this.getUIContext()
-        .keyframeAnimateTo({ iterations: -1, delay: DelayConstant.DELAY_0 }, this.generateKeyframeState());
+        .keyframeAnimateTo({ iterations: CommonConstants.ANIMATION_ITERATIONS, delay: DelayConstant.DELAY_0 },
+          this.generateKeyframeState());
       this.getUIContext()
-        .keyframeAnimateTo({ iterations: -1, delay: DelayConstant.DELAY_500 }, this.generateKeyframeAngle());
+        .keyframeAnimateTo({ iterations: CommonConstants.ANIMATION_ITERATIONS, delay: DelayConstant.DELAY_500 },
+          this.generateKeyframeAngle());
     })
   }
 
@@ -55,16 +57,16 @@ export struct ChasingDots {
         duration: DurationConstant.DURATION_1000,
         curve: Curve.EaseInOut,
         event: () => {
-          this.spinkit[0].scale = 1;
-          this.spinkit[1].scale = 0;
+          this.vm.spinKit[0].scale = ScaleStyle.NORMAL;
+          this.vm.spinKit[1].scale = ScaleStyle.SMALL;
         }
       },
       {
         duration: DurationConstant.DURATION_1000,
         curve: Curve.EaseInOut,
         event: () => {
-          this.spinkit[0].scale = 0;
-          this.spinkit[1].scale = 1;
+          this.vm.spinKit[0].scale = ScaleStyle.SMALL;
+          this.vm.spinKit[1].scale = ScaleStyle.NORMAL;
         }
       }
     ];
@@ -79,7 +81,7 @@ export struct ChasingDots {
         duration: DurationConstant.DURATION_2000,
         curve: Curve.Linear,
         event: () => {
-          this.spinkit[0].rotate = 360;
+          this.vm.spinKit[0].rotate = CommonConstants.ROTATE_360;
         }
       }
     ];

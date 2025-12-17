@@ -2,7 +2,7 @@ import { CommonConstants } from "../constants/CommonConstants";
 import { DelayConstant } from "../constants/DelayConstant";
 import { DurationConstant } from "../constants/DurationConstant";
 import { SpinKit } from "../model/SpinKit";
-import { SizeStyle } from "../model/Style";
+import { ScaleStyle, SizeStyle } from "../model/Style";
 import { SpinKitVM } from "../viewmodel/SpinKitVM";
 
 /**
@@ -12,19 +12,18 @@ import { SpinKitVM } from "../viewmodel/SpinKitVM";
 export struct Wave {
   @Require @Param mSize: SizeStyle | number = SizeStyle.NORMAL
   @Require @Param color: ResourceColor;
-  @Local spinkit: SpinKit[] = [new SpinKit(), new SpinKit(), new SpinKit(), new SpinKit(), new SpinKit(),]
   @Local vm: SpinKitVM = new SpinKitVM()
 
   aboutToAppear(): void {
-    this.vm.getSpinKitSize(this.mSize)
+    this.vm.initSpinKit(5, this.mSize)
     this.setSpinKitScale()
   }
 
   build() {
     Row() {
-      ForEach(this.spinkit, (item: SpinKit) => {
+      ForEach(this.vm.spinKit, (item: SpinKit) => {
         Canvas()
-          .width(this.vm.width / 6)
+          .width(this.vm.width / (this.vm.spinKit.length + 1))
           .height(CommonConstants.FULL_SCREEN_HEIGHT)
           .backgroundColor(this.color)
           .scale({ y: item.scale })
@@ -34,9 +33,12 @@ export struct Wave {
     .height(this.vm.height)
     .justifyContent(FlexAlign.SpaceBetween)
     .onAppear(() => {
-      this.spinkit.forEach((_, index) => {
+      this.vm.spinKit.forEach((_, index) => {
         this.getUIContext().keyframeAnimateTo(
-          { iterations: -1, delay: DelayConstant.DELAY_600 + index * DelayConstant.DELAY_100 },
+          {
+            iterations: CommonConstants.ANIMATION_ITERATIONS,
+            delay: DelayConstant.DELAY_600 + index * DelayConstant.DELAY_100
+          },
           this.generateKeyframeState(index)
         );
       });
@@ -47,8 +49,8 @@ export struct Wave {
    * 初始化长条的缩放值
    */
   private setSpinKitScale() {
-    for (let i = 0; i < this.spinkit.length; i++) {
-      this.spinkit[i].scale = 0.4;
+    for (let i = 0; i < this.vm.spinKit.length; i++) {
+      this.vm.spinKit[i].scale = CommonConstants.SCALE_0_4;
     }
   }
 
@@ -61,14 +63,14 @@ export struct Wave {
         duration: DurationConstant.DURATION_200,
         curve: Curve.EaseInOut,
         event: () => {
-          this.spinkit[index].scale = 1;
+          this.vm.spinKit[index].scale = ScaleStyle.NORMAL;
         }
       },
       {
         duration: DurationConstant.DURATION_200,
         curve: Curve.EaseInOut,
         event: () => {
-          this.spinkit[index].scale = 0.4;
+          this.vm.spinKit[index].scale = CommonConstants.SCALE_0_4;
         }
       },
       {

@@ -1,7 +1,8 @@
+import { CommonConstants } from "../constants/CommonConstants";
 import { DelayConstant } from "../constants/DelayConstant";
 import { DurationConstant } from "../constants/DurationConstant";
-import { SpinKit } from "../model/SpinKit";
-import { SizeStyle } from "../model/Style";
+import { OpacityConstants } from "../constants/OpacityConstants";
+import { ScaleStyle, SizeStyle } from "../model/Style";
 import { SpinKitVM } from "../viewmodel/SpinKitVM";
 
 /**
@@ -11,12 +12,11 @@ import { SpinKitVM } from "../viewmodel/SpinKitVM";
 export struct Pulse {
   @Require @Param mSize: SizeStyle | number = SizeStyle.NORMAL;
   @Require @Param color: ResourceColor;
-  @Local spinkit: SpinKit = new SpinKit()
   @Local vm: SpinKitVM = new SpinKitVM()
 
   aboutToAppear(): void {
-    this.vm.getSpinKitSize(this.mSize)
-    this.spinkit.scale = 0
+    this.vm.initSpinKit(1, this.mSize)
+    this.vm.initSpinKitScale()
   }
 
   build() {
@@ -26,19 +26,20 @@ export struct Pulse {
       .borderRadius(this.vm.width)
       .backgroundColor(this.color)
       .renderFit(RenderFit.CENTER)
-      .scale({ x: this.spinkit.scale, y: this.spinkit.scale })
-      .opacity(this.spinkit.opacity)
+      .scale({ x: this.vm.spinKit[0].scale, y: this.vm.spinKit[0].scale })
+      .opacity(this.vm.spinKit[0].opacity)
       .onAppear(() => {
-        this.getUIContext().keyframeAnimateTo({ iterations: -1, delay: DelayConstant.DELAY_0 }, [
-          {
-            duration: DurationConstant.DURATION_1000,
-            curve: Curve.EaseInOut,
-            event: () => {
-              this.spinkit.scale = 1
-              this.spinkit.opacity = 0
+        this.getUIContext()
+          .keyframeAnimateTo({ iterations: CommonConstants.ANIMATION_ITERATIONS, delay: DelayConstant.DELAY_0 }, [
+            {
+              duration: DurationConstant.DURATION_1000,
+              curve: Curve.EaseInOut,
+              event: () => {
+                this.vm.spinKit[0].scale = ScaleStyle.NORMAL
+                this.vm.spinKit[0].opacity = OpacityConstants.HIDDEN
+              }
             }
-          }
-        ])
+          ])
       })
   }
 }
