@@ -37,6 +37,8 @@ export struct FoldingCube {
           })
       })
     }
+    .width(this.vm.width)
+    .height(this.vm.height)
     .rotate({ angle: CommonConstants.NEGATIVE_ROTATE_45 })
     .onAppear(() => {
       const keyframe = [() => {

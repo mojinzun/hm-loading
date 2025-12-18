@@ -32,6 +32,7 @@ export struct WanderingCubes {
           .width(this.vm.width * SCALE_FACTOR_0_25)
           .height(this.vm.width * SCALE_FACTOR_0_25)
           .backgroundColor(this.color)
+          .position({ x: 0, y: 0 })
           .translate({ x: item.translateX, y: item.translateY })
           .scale({ x: item.scale, y: item.scale })
           .rotate({ angle: item.rotate })
