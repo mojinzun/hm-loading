@@ -45,16 +45,6 @@ struct Index {
           StyleComponent()
         }
         .tabBar(this.tabBuilder('STYLE', 0))
-        .gesture(
-          PanGesture({ direction: PanDirection.Horizontal }) // 仅监测水平滑动
-            .onActionUpdate((e: GestureEvent) => {
-              const dragDistance = e.offsetX; // 获取水平滑动距离（vp）
-              console.log(`手势滑动距离: ${dragDistance}vp`);
-
-              // 转换为Tab索引单位（需提前计算单Tab宽度）
-              // const tabIndexOffset = dragDistance / this.perTabWidthVp;
-            })
-        )
 
         TabContent() {
           WidgetComponent()
