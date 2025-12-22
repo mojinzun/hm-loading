@@ -1,107 +1,79 @@
-import { SizeStyle, SpinKitView, Style } from 'spinkit';
+import { StyleComponent } from '../component/StyleComponent';
+import { WidgetComponent } from '../component/WidgetComponent';
 
 @Entry
 @Component
 struct Index {
-  build() {
-    Scroll() {
-      Column({ space: 12 }) {
-        Row() {
-          SpinKitView()
-          SpinKitView({ mColor: "#ff0000" })
-          SpinKitView({ mSize: SizeStyle.SMALL })
-          SpinKitView({ mSize: SizeStyle.LARGE })
-        }
+  @State selectedIndex: number = 0;
+  @State currentIndex: number = 0;
+  private controller: TabsController = new TabsController();
 
-        Row() {
-          SpinKitView({ mStyle: Style.DOUBLE_BOUNCE, mColor: '#ff0000' })
-        }
-
-        Row() {
-          SpinKitView({ mStyle: Style.WAVE, mColor: '#ff0000' })
-          SpinKitView({ mStyle: Style.WAVE, mColor: Color.Orange, mSize: SizeStyle.SMALL })
-          SpinKitView({ mStyle: Style.WAVE, mColor: Color.Blue, mSize: SizeStyle.LARGE })
-        }
-
-        Row() {
-          SpinKitView({ mStyle: Style.WANDERING_CUBES, mColor: '#ff55deff', mSize: SizeStyle.SMALL })
-          SpinKitView({ mStyle: Style.WANDERING_CUBES })
-          SpinKitView({ mStyle: Style.WANDERING_CUBES, mColor: '#ff8900ff', mSize: SizeStyle.LARGE })
-        }
-
-        Row() {
-          SpinKitView({ mStyle: Style.PULSE, mColor: '#ff55deff', mSize: SizeStyle.SMALL })
-          SpinKitView({ mStyle: Style.PULSE, mColor: '#ff0000' })
-          SpinKitView({ mStyle: Style.PULSE, mColor: '#ff8900ff', mSize: SizeStyle.LARGE })
-        }
-
-        Row() {
-          SpinKitView({ mStyle: Style.CHASING_DOTS, mColor: '#ff0000' })
-        }
-
-        Row() {
-          SpinKitView({ mStyle: Style.THREE_BOUNCE, mColor: '#ff47d6ff', mSize: SizeStyle.SMALL })
-          SpinKitView({ mStyle: Style.THREE_BOUNCE, mColor: '#ff47d6ff' })
-          SpinKitView({ mStyle: Style.THREE_BOUNCE, mColor: '#ff47d6ff', mSize: SizeStyle.LARGE })
-        }
-
-        Row() {
-          SpinKitView({ mStyle: Style.CUBE_GRID, mColor: '#ff55deff', mSize: SizeStyle.SMALL })
-          SpinKitView({ mStyle: Style.CUBE_GRID, mColor: '#ff0000' })
-          SpinKitView({ mStyle: Style.CUBE_GRID, mColor: '#ff8900ff', mSize: SizeStyle.LARGE })
-          SpinKitView({ mStyle: Style.CUBE_GRID, mColor: '#ff8900ff', mSize: 100 })
-        }
-
-
-        Row({ space: 12 }) {
-          SpinKitView({ mStyle: Style.FADING_CIRCLE, mColor: '#ff55deff', mSize: SizeStyle.SMALL })
-          SpinKitView({ mStyle: Style.FADING_CIRCLE, mColor: '#ffff1e00' })
-          SpinKitView({ mStyle: Style.FADING_CIRCLE, mColor: '#ff8900ff', mSize: SizeStyle.LARGE })
-          // SpinKitView({ mStyle: Style.FADING_CIRCLE, mColor: '#ff8900ff', mSize: 200 })
-        }
-
-        Row({ space: 12 }) {
-          SpinKitView({ mStyle: Style.CIRCLE, mColor: '#ff55deff', mSize: SizeStyle.SMALL })
-          SpinKitView({ mStyle: Style.CIRCLE, mColor: '#ffff1e00' })
-          SpinKitView({ mStyle: Style.CIRCLE, mColor: '#ff8900ff', mSize: SizeStyle.LARGE })
-        }
-
-        Row({ space: 12 }) {
-          SpinKitView({ mStyle: Style.FOLDING_CUBE, mColor: '#ff55deff', mSize: SizeStyle.SMALL })
-          SpinKitView({ mStyle: Style.FOLDING_CUBE, mColor: '#ffff1e00' })
-          SpinKitView({ mStyle: Style.FOLDING_CUBE, mColor: '#ff8900ff', mSize: SizeStyle.LARGE })
-        }
-
-        Row({ space: 12 }) {
-          SpinKitView({ mStyle: Style.ROTATING_CIRCLE, mColor: '#ff55deff', mSize: SizeStyle.SMALL })
-          SpinKitView({ mStyle: Style.ROTATING_CIRCLE, mColor: '#ffff1e00' })
-          SpinKitView({ mStyle: Style.ROTATING_CIRCLE, mColor: '#ff8900ff', mSize: SizeStyle.LARGE })
-        }
-
-
-        Row() {
-          SpinKitView({ mStyle: Style.MULTIPLE_PULSE, mColor: '#ff55deff', mSize: SizeStyle.SMALL })
-          SpinKitView({ mStyle: Style.MULTIPLE_PULSE, mColor: '#ffff1e00' })
-          SpinKitView({ mStyle: Style.MULTIPLE_PULSE, mColor: '#ff8900ff', mSize: SizeStyle.LARGE })
-        }
-
-        Row() {
-          SpinKitView({ mStyle: Style.PULSE_RING, mColor: '#ff55deff', mSize: SizeStyle.SMALL })
-          SpinKitView({ mStyle: Style.PULSE_RING, mColor: '#ffff1e00' })
-          SpinKitView({ mStyle: Style.PULSE_RING, mColor: '#ff8900ff', mSize: SizeStyle.LARGE })
-        }
-
-        Row() {
-          SpinKitView({ mStyle: Style.MULTIPLE_PULSE_RING, mColor: '#ff55deff', mSize: SizeStyle.SMALL })
-          SpinKitView({ mStyle: Style.MULTIPLE_PULSE_RING, mColor: '#ffff1e00' })
-          SpinKitView({ mStyle: Style.MULTIPLE_PULSE_RING, mColor: '#ff8900ff', mSize: SizeStyle.LARGE })
-        }
+  @Builder
+  tabBuilder(title: string, targetIndex: number) {
+    Stack() {
+      Button({ buttonStyle: ButtonStyleMode.TEXTUAL }) {
+        Text(title)
+          .fontColor(this.selectedIndex === targetIndex ? '#202020' : '#646464')
       }
       .width('100%')
-      .layoutWeight(1)
-      .justifyContent(FlexAlign.Start)
+      .height('100%')
+      .type(ButtonType.Normal)
+
+      // .border({ width: { bottom: 2 }, color: this.selectedIndex === targetIndex ? '#ff4081' : Color.Transparent })
+      // Divider()
+      //   .color(this.selectedIndex === targetIndex ? '#ff4081' : Color.Transparent)
+      //   .strokeWidth(this.selectedIndex === targetIndex ? 2 : 0)
+      //   .position({ bottom: 0 })
+      //   .animation({ duration: 400 })
+    }
+  }
+
+  build() {
+    Column() {
+      Divider()
+        .width("50%")
+        .color('#ff4081')
+        .strokeWidth(2)
+        .position({ x: this.selectedIndex === 0 ? 0 : "50%", y: 54 })
+        .animation({ duration: 300 })
+      Tabs({
+        barPosition: BarPosition.Start,
+        index: this.currentIndex,
+        controller: this.controller
+      }) {
+        TabContent() {
+          StyleComponent()
+        }
+        .tabBar(this.tabBuilder('STYLE', 0))
+        .gesture(
+          PanGesture({ direction: PanDirection.Horizontal }) // 仅监测水平滑动
+            .onActionUpdate((e: GestureEvent) => {
+              const dragDistance = e.offsetX; // 获取水平滑动距离（vp）
+              console.log(`手势滑动距离: ${dragDistance}vp`);
+
+              // 转换为Tab索引单位（需提前计算单Tab宽度）
+              // const tabIndexOffset = dragDistance / this.perTabWidthVp;
+            })
+        )
+
+        TabContent() {
+          WidgetComponent()
+        }
+        .tabBar(this.tabBuilder('WIDGET', 1))
+      }
+      .barMode(BarMode.Fixed)
+      .onChange((index: number) => {
+        this.currentIndex = index;
+      })
+      .onAnimationStart((index: number, targetIndex: number, event: TabsAnimationEvent) => {
+        if (index === targetIndex) {
+          return;
+        }
+        this.selectedIndex = targetIndex;
+      })
     }
     .width('100%')
     .height('100%')
+    .backgroundColor('#FaFaFa')
   }
 }
