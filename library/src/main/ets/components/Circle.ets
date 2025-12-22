@@ -8,7 +8,6 @@ import { SpinKitVM } from "../viewmodel/SpinKitVM";
 
 /**
  * 渐隐+缩放环形加载动画
- * todo 后续迭代,与FadingCircle合
  */
 @ComponentV2
 export struct CircleLoading {

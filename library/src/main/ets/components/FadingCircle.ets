@@ -8,7 +8,6 @@ import { SpinKitVM } from "../viewmodel/SpinKitVM";
 
 /**
  * 渐隐环形加载动画
- * todo 后续迭代，考虑与CircleLoading合并
  */
 @ComponentV2
 export struct FadingCircle {
@@ -22,7 +21,7 @@ export struct FadingCircle {
   private ballSize: number = 0; // 小球直径
 
   aboutToAppear(): void {
-    this.vm.initSpinKit(12,this.mSize)
+    this.vm.initSpinKit(12, this.mSize)
     this.initDraw()
   }
 
