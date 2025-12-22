@@ -20,25 +20,30 @@ export struct FoldingCube {
   }
 
   build() {
-    Stack() {
-      ForEach(this.vm.spinKit, (item: SpinKit, index: number) => {
-        Canvas()
-          .width(this.vm.width / 2)
-          .height(this.vm.height / 2)
-          .backgroundColor(this.color)
-          .position({ x: index % 2 === 0 ? 0 : this.vm.width / 2, y: index > 1 ? this.vm.height / 2 : 0 })
-          .opacity(item.opacity)
-          .rotate({
-            x: index === 1 || index === 2 ? CommonConstants.ROTATE_AXIS_1 : CommonConstants.ROTATE_AXIS_0,
-            y: index === 0 || index === 3 ? CommonConstants.ROTATE_AXIS_1 : CommonConstants.ROTATE_AXIS_0,
-            centerX: index === 0 ? this.vm.width / 2 : 0,
-            centerY: index === 1 ? this.vm.height / 2 : 0,
-            angle: item.rotate
-          })
-      })
+    Row() {
+      Stack() {
+        ForEach(this.vm.spinKit, (item: SpinKit, index: number) => {
+          Canvas()
+            .width(this.vm.width / 2)
+            .height(this.vm.height / 2)
+            .backgroundColor(this.color)
+            .position({ x: index % 2 === 0 ? 0 : this.vm.width / 2, y: index > 1 ? this.vm.height / 2 : 0 })
+            .opacity(item.opacity)
+            .rotate({
+              x: index === 1 || index === 2 ? CommonConstants.ROTATE_AXIS_1 : CommonConstants.ROTATE_AXIS_0,
+              y: index === 0 || index === 3 ? CommonConstants.ROTATE_AXIS_1 : CommonConstants.ROTATE_AXIS_0,
+              centerX: index === 0 ? this.vm.width / 2 : 0,
+              centerY: index === 1 ? this.vm.height / 2 : 0,
+              angle: item.rotate
+            })
+        })
+      }
+      .width(CommonConstants.FULL_SCREEN_WIDTH)
+      .height(CommonConstants.FULL_SCREEN_HEIGHT)
     }
     .width(this.vm.width)
     .height(this.vm.height)
+    .border({ width: 1, color: Color.Transparent })
     .rotate({ angle: CommonConstants.NEGATIVE_ROTATE_45 })
     .onAppear(() => {
       const keyframe = [() => {
