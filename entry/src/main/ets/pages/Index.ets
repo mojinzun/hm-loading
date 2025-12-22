@@ -1,5 +1,5 @@
-import { CommonConstants } from 'spinkit/src/main/ets/constants/CommonConstants';
-import { DurationConstant } from 'spinkit/src/main/ets/constants/DurationConstant';
+import { CommonConstants } from 'library/src/main/ets/constants/CommonConstants';
+import { DurationConstant } from 'library/src/main/ets/constants/DurationConstant';
 import { StyleComponent } from '../component/StyleComponent';
 import { WidgetComponent } from '../component/WidgetComponent';
 import { Constants } from '../constants/CommonConstant';

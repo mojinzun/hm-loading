@@ -6,7 +6,7 @@
   "author": "",
   "license": "",
   "dependencies": {
-    'spinkit': 'file:../spinkit'
+    "library": "file:../library"
   }
 }
 

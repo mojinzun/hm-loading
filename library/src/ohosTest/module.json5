@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "spinkit_test",
+    "name": "library_test",
     "type": "feature",
     "deviceTypes": [
       "default"

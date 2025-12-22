@@ -1,7 +1,7 @@
-import { SpinKitView, Style } from "spinkit";
+import { SpinKitView, Style } from "library";
 import { COLORS, SPIN_KIT_STYLE } from "../constants/CommonConstant";
 import { router } from "@kit.ArkUI";
-import { CommonConstants } from "spinkit/src/main/ets/constants/CommonConstants";
+import { CommonConstants } from "library/src/main/ets/constants/CommonConstants";
 
 @ComponentV2
 export struct StyleComponent {

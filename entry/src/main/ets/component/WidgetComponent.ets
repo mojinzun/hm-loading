@@ -1,5 +1,5 @@
-import { SizeStyle, SpinKitView, Style } from "spinkit"
-import { CommonConstants } from "spinkit/src/main/ets/constants/CommonConstants"
+import { SizeStyle, SpinKitView, Style } from "library"
+import { CommonConstants } from "library/src/main/ets/constants/CommonConstants"
 
 @ComponentV2
 export struct WidgetComponent {

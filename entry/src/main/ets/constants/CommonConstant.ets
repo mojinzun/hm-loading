@@ -1,4 +1,4 @@
-import { Style } from "spinkit"
+import { Style } from "library"
 
 export const COLORS: number[] = [
   0XFFD55400,

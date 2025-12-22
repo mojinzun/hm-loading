@@ -39,8 +39,8 @@
       ]
     },
     {
-      "name": "spinkit",
-      "srcPath": "./spinkit",
+      "name": "library",
+      "srcPath": "./library"
     }
   ]
 }
