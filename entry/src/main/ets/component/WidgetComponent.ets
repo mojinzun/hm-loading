@@ -1,4 +1,5 @@
 import { SizeStyle, SpinKitView, Style } from "spinkit"
+import { CommonConstants } from "spinkit/src/main/ets/constants/CommonConstants"
 
 @ComponentV2
 export struct WidgetComponent {
@@ -10,13 +11,13 @@ export struct WidgetComponent {
         Row() {
           SpinKitView({
             mStyle: Style.DOUBLE_BOUNCE,
-            mColor: "#3eba76",
+            mColor: $r("app.color.double_bounce_color"),
             mSize: SizeStyle.LARGE,
           })
         }
-        .width("100%")
+        .width(CommonConstants.FULL_SCREEN_WIDTH)
         .justifyContent(FlexAlign.Center)
-        .padding(8)
+        .padding($r("app.float.padding_8"))
         .layoutWeight(2)
       }
 
@@ -27,7 +28,7 @@ export struct WidgetComponent {
           Row() {
             SpinKitView({
               mStyle: Style.WAVE,
-              mColor: "#ff4081",
+              mColor: $r("app.color.selected_tab_underline"),
               mSize: SizeStyle.NORMAL,
             })
             Text("BUTTON")
@@ -35,8 +36,8 @@ export struct WidgetComponent {
               .layoutWeight(1)
               .textAlign(TextAlign.Center)
           }
-          .width("100%")
-          .padding(8)
+          .width(CommonConstants.FULL_SCREEN_WIDTH)
+          .padding($r("app.float.padding_8"))
         }
         .type(ButtonType.Normal)
         .layoutWeight(2)
@@ -52,13 +53,13 @@ export struct WidgetComponent {
             .textAlign(TextAlign.Center)
           SpinKitView({
             mStyle: Style.CIRCLE,
-            mColor: "#ffffff",
-            mSize: SizeStyle.NORMAL,
+            mColor: $r("app.color.circle_color"),
+            mSize: SizeStyle.NORMAL
           })
         }
-        .width("100%")
-        .backgroundColor("#00bd9c")
-        .padding(8)
+        .width(CommonConstants.FULL_SCREEN_WIDTH)
+        .backgroundColor($r("app.color.circle_bg_color"))
+        .padding($r("app.float.padding_8"))
         .layoutWeight(2)
       }
 
@@ -68,19 +69,19 @@ export struct WidgetComponent {
         Row() {
           SpinKitView({
             mStyle: Style.CHASING_DOTS,
-            mColor: "#ffffff",
+            mColor: $r("app.color.circle_color"),
             mSize: SizeStyle.LARGE,
           })
         }
-        .width("100%")
-        .backgroundColor("#d55400")
+        .width(CommonConstants.FULL_SCREEN_WIDTH)
+        .backgroundColor($r("app.color.chasing_dots_bg_color"))
         .justifyContent(FlexAlign.Center)
-        .padding(8)
+        .padding($r("app.float.padding_8"))
         .layoutWeight(2)
       }
     }
-    .width("100%")
-    .height("100%")
+    .width(CommonConstants.FULL_SCREEN_WIDTH)
+    .height(CommonConstants.FULL_SCREEN_HEIGHT)
     .padding($r("app.float.padding_16"))
     .justifyContent(FlexAlign.Start)
   }

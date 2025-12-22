@@ -1,5 +1,8 @@
+import { CommonConstants } from 'spinkit/src/main/ets/constants/CommonConstants';
+import { DurationConstant } from 'spinkit/src/main/ets/constants/DurationConstant';
 import { StyleComponent } from '../component/StyleComponent';
 import { WidgetComponent } from '../component/WidgetComponent';
+import { Constants } from '../constants/CommonConstant';
 
 @Entry
 @Component
@@ -13,29 +16,22 @@ struct Index {
     Stack() {
       Button({ buttonStyle: ButtonStyleMode.TEXTUAL }) {
         Text(title)
-          .fontColor(this.selectedIndex === targetIndex ? '#202020' : '#646464')
+          .fontColor(this.selectedIndex === targetIndex ? $r("app.color.selected_tab") : $r("app.color.unselected_tab"))
       }
-      .width('100%')
-      .height('100%')
+      .width(CommonConstants.FULL_SCREEN_WIDTH)
+      .height(CommonConstants.FULL_SCREEN_HEIGHT)
       .type(ButtonType.Normal)
-
-      // .border({ width: { bottom: 2 }, color: this.selectedIndex === targetIndex ? '#ff4081' : Color.Transparent })
-      // Divider()
-      //   .color(this.selectedIndex === targetIndex ? '#ff4081' : Color.Transparent)
-      //   .strokeWidth(this.selectedIndex === targetIndex ? 2 : 0)
-      //   .position({ bottom: 0 })
-      //   .animation({ duration: 400 })
     }
   }
 
   build() {
     Column() {
       Divider()
-        .width("50%")
-        .color('#ff4081')
+        .width(Constants.HALF_SCREEN_WIDTH)
+        .color($r("app.color.selected_tab_underline"))
         .strokeWidth(2)
-        .position({ x: this.selectedIndex === 0 ? 0 : "50%", y: 54 })
-        .animation({ duration: 300 })
+        .position({ x: this.selectedIndex === 0 ? 0 : Constants.HALF_SCREEN_WIDTH, y: 54 })
+        .animation({ duration: DurationConstant.DURATION_300 })
       Tabs({
         barPosition: BarPosition.Start,
         index: this.currentIndex,
@@ -62,8 +58,8 @@ struct Index {
         this.selectedIndex = targetIndex;
       })
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FaFaFa')
+    .width(CommonConstants.FULL_SCREEN_WIDTH)
+    .height(CommonConstants.FULL_SCREEN_HEIGHT)
+    .backgroundColor($r("app.color.start_window_background"))
   }
 }

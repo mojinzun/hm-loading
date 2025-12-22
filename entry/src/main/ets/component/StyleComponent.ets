@@ -1,6 +1,7 @@
 import { SpinKitView, Style } from "spinkit";
 import { COLORS, SPIN_KIT_STYLE } from "../constants/CommonConstant";
 import { router } from "@kit.ArkUI";
+import { CommonConstants } from "spinkit/src/main/ets/constants/CommonConstants";
 
 @ComponentV2
 export struct StyleComponent {
@@ -22,10 +23,10 @@ export struct StyleComponent {
       }
       .columnsTemplate('1fr 1fr 1fr 1fr')
       .rowsTemplate('1fr 1fr 1fr 1fr 1fr')
-      .width('100%').height(400)
+      .width(CommonConstants.FULL_SCREEN_WIDTH).height(400)
     }
-    .width('100%')
-    .height('100%')
+    .width(CommonConstants.FULL_SCREEN_WIDTH)
+    .height(CommonConstants.FULL_SCREEN_HEIGHT)
     .justifyContent(FlexAlign.Start)
   }
 }

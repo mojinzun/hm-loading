@@ -46,3 +46,7 @@ export const SPIN_KIT_NAME: string[] = [
   "pulse_ring",
   "multiple_pulse_ring",
 ]
+
+export class Constants{
+  public static readonly HALF_SCREEN_WIDTH: string = "50%"
+}

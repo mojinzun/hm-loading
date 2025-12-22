@@ -2,7 +2,35 @@
   "color": [
     {
       "name": "start_window_background",
-      "value": "#FFFFFF"
+      "value": "#FaFaFa"
+    },
+    {
+      "name": "selected_tab",
+      "value": "#202020"
+    },
+    {
+      "name": "unselected_tab",
+      "value": "#646464"
+    },
+    {
+      "name": "selected_tab_underline",
+      "value": "#ff4081"
+    },
+    {
+      "name": "double_bounce_color",
+      "value": "#3eba76"
+    },
+    {
+      "name": "circle_color",
+      "value": "#fff"
+    },
+    {
+      "name": "circle_bg_color",
+      "value": "#00bd9c"
+    },
+    {
+      "name": "chasing_dots_bg_color",
+      "value": "#d55400"
     }
   ]
 }

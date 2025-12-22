@@ -3,6 +3,18 @@
     {
       "name": "page_text_font_size",
       "value": "50fp"
+    },
+    {
+      "name": "padding_8",
+      "value": "8vp"
+    },
+    {
+      "name": "margin_bottom_20",
+      "value": "20vp"
+    },
+    {
+      "name": "detail_font_size_24",
+      "value": "24fp"
     }
   ]
 }

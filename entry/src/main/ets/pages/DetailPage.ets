@@ -1,4 +1,5 @@
 import { SizeStyle, SpinKitView, Style } from 'spinkit';
+import { CommonConstants } from 'spinkit/src/main/ets/constants/CommonConstants';
 import { COLORS, SPIN_KIT_NAME, SPIN_KIT_STYLE } from '../constants/CommonConstant';
 
 interface RouterParam {
@@ -23,18 +24,18 @@ struct DetailPage {
           SpinKitView({ mStyle: item, mColor: Color.White, mSize: SizeStyle.LARGE })
           Blank()
           Text(SPIN_KIT_NAME[index])
-            .fontSize(24)
-            .fontWeight(600)
+            .fontSize($r("app.float.detail_font_size_24"))
+            .fontWeight(FontWeight.Bold)
             .fontColor(Color.White)
-            .margin({ bottom: 20 })
+            .margin({ bottom: $r("app.float.margin_bottom_20") })
         }
-        .width("100%")
-        .height("100%")
+        .width(CommonConstants.FULL_SCREEN_WIDTH)
+        .height(CommonConstants.FULL_SCREEN_HEIGHT)
         .backgroundColor(COLORS[index%COLORS.length])
       })
     }
-    .width("100%")
-    .height("100%")
+    .width(CommonConstants.FULL_SCREEN_WIDTH)
+    .height(CommonConstants.FULL_SCREEN_HEIGHT)
     .index(this.currentIndex)
     .autoPlay(false)
     .indicator(false)
