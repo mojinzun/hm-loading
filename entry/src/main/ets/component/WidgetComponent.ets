@@ -59,7 +59,7 @@ export struct WidgetComponent {
         }
         .width(CommonConstants.FULL_SCREEN_WIDTH)
         .backgroundColor($r("app.color.circle_bg_color"))
-        .padding($r("app.float.padding_8"))
+        .padding($r("app.float.padding_16"))
         .layoutWeight(2)
       }
 
