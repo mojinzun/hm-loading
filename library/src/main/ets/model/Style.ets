@@ -8,6 +8,7 @@ export enum Style {
   DOUBLE_BOUNCE = 1,
   /** 波浪动画 */
   WAVE = 2,
+  /** 流浪立方体 */
   WANDERING_CUBES = 3,
   /** 脉冲动画 */
   PULSE = 4,

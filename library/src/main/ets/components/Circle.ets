@@ -1,7 +1,7 @@
 import { CommonConstants } from "../constants/CommonConstants";
 import { DelayConstant } from "../constants/DelayConstant";
 import { DurationConstant } from "../constants/DurationConstant";
-import { OpacityConstants } from "../constants/OpacityConstants";
+import { OpacityConstants } from "../constants/OpacityConstant";
 import { SpinKit } from "../model/SpinKit";
 import { SizeStyle } from "../model/Style";
 import { SpinKitVM } from "../viewmodel/SpinKitVM";
@@ -41,22 +41,26 @@ export struct CircleLoading {
     .height(this.vm.height)
     .onAppear(() => {
       this.vm.spinKit.forEach((item: SpinKit, index: number) => {
-        this.getUIContext().keyframeAnimateTo({ iterations: CommonConstants.ANIMATION_ITERATIONS, delay: index * DelayConstant.DELAY_100 }, [
-          {
-            duration: DurationConstant.DURATION_1000,
-            curve: Curve.EaseInOut,
-            event: () => {
-              item.scale = OpacityConstants.VISIBLE
+        this.getUIContext()
+          .keyframeAnimateTo({
+            iterations: CommonConstants.ANIMATION_ITERATIONS,
+            delay: index * DelayConstant.DELAY_100
+          }, [
+            {
+              duration: DurationConstant.DURATION_1000,
+              curve: Curve.EaseInOut,
+              event: () => {
+                item.scale = OpacityConstants.VISIBLE
+              }
+            },
+            {
+              duration: DurationConstant.DURATION_200,
+              curve: Curve.EaseInOut,
+              event: () => {
+                item.scale = OpacityConstants.HIDDEN
+              }
             }
-          },
-          {
-            duration: DurationConstant.DURATION_200,
-            curve: Curve.EaseInOut,
-            event: () => {
-              item.scale = OpacityConstants.HIDDEN
-            }
-          }
-        ])
+          ])
       })
     })
   }

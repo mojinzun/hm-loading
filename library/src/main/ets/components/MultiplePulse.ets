@@ -1,7 +1,7 @@
 import { CommonConstants } from "../constants/CommonConstants";
 import { DelayConstant } from "../constants/DelayConstant";
 import { DurationConstant } from "../constants/DurationConstant";
-import { OpacityConstants } from "../constants/OpacityConstants";
+import { OpacityConstants } from "../constants/OpacityConstant";
 import { SpinKit } from "../model/SpinKit";
 import { ScaleStyle, SizeStyle } from "../model/Style";
 import { SpinKitVM } from "../viewmodel/SpinKitVM";
