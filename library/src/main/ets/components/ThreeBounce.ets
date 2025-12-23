@@ -21,13 +21,13 @@ export struct ThreeBounce {
 
   build() {
     Row() {
-      ForEach(this.vm.spinKit, (item: SpinKit) => {
+      ForEach(this.vm.spinKit, (item: SpinKit, index: number) => {
         Circle()
           .width(this.vm.width / this.vm.spinKit.length)
           .height(this.vm.height / this.vm.spinKit.length)
           .fill(this.color)
           .scale({ x: item.scale, y: item.scale })
-      })
+      }, (item: SpinKit, index) => `${index}__${item}`)
     }
     .width(this.vm.width)
     .height(this.vm.height)

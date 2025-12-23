@@ -36,7 +36,7 @@ export struct FoldingCube {
               centerY: index === 1 ? this.vm.height / 2 : 0,
               angle: item.rotate
             })
-        })
+        }, (item: SpinKit, index) => `${index}__${item}`)
       }
       .width(CommonConstants.FULL_SCREEN_WIDTH)
       .height(CommonConstants.FULL_SCREEN_HEIGHT)

@@ -32,7 +32,7 @@ struct DetailPage {
         .width(CommonConstants.FULL_SCREEN_WIDTH)
         .height(CommonConstants.FULL_SCREEN_HEIGHT)
         .backgroundColor(COLORS[index%COLORS.length])
-      })
+      }, (item: Style, index) => `${index}__${item}`)
     }
     .width(CommonConstants.FULL_SCREEN_WIDTH)
     .height(CommonConstants.FULL_SCREEN_HEIGHT)

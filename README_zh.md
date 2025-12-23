@@ -121,11 +121,11 @@ SizeStyle枚举说明
 
 动画尺寸枚举
 
-| 名称   | 值     | 说明               |
-| ------ | ------ | ------------------ |
-| SMALL  | small  | 小尺寸。大小24vp   |
+| 名称     | 值      | 说明          |
+|--------|--------|-------------|
+| SMALL  | small  | 小尺寸。大小24vp  |
 | NORMAL | normal | 默认尺寸。大小40vp |
-| LARGE  | large  | 大尺寸。大小64vp   |
+| LARGE  | large  | 大尺寸。大小64vp  |
 
 ## 关于混淆
 
@@ -186,14 +186,4 @@ SizeStyle枚举说明
 |     |---- README.md           # 英文安装使用方法  
 |     |---- README_zh.md        # 中文安装使用方法  
 ````
-
-## 贡献代码
-
-使用过程中发现任何问题都可以提 [Issue]( https://gitcode.com/openharmony-sig/ohos_spin_kit/issues)
-给组件，当然，也非常欢迎发 [PR]( https://gitcode.com/openharmony-sig/ohos_spin_kit/pulls)共建 。
-
-## 开源协议
-
-本项目基于 [Apache License 2.0]( https://gitcode.com/openharmony-sig/ohos_spin_kit/blob/master/LICENSE)
-，请自由地享受和参与开源。
 

@@ -3,7 +3,8 @@
 ## Introduction
 
 > SpinKit loading animations (OpenHarmony implementation of [SpinKit](https://tobiasahlin.com/spinkit))
-> . This library is adapted from the [Android-SpinKit](https://github.com/ybq/Android-SpinKit) original library to run on OpenHarmony, retaining its existing usage and features.
+> . This library is adapted from the [Android-SpinKit](https://github.com/ybq/Android-SpinKit) original library to run
+> on OpenHarmony, retaining its existing usage and features.
 
 STYLE examples:
 
@@ -23,7 +24,8 @@ DETAIL page effects:
 ohpm install @ohos/spinkit
 ```
 
-For more information about OpenHarmony ohpm environment configuration, please refer to [How to Install OpenHarmony ohpm Packages](https://gitcode.com/openharmony-tpc/docs/blob/master/OpenHarmony_har_usage.md)
+For more information about OpenHarmony ohpm environment configuration, please refer
+to [How to Install OpenHarmony ohpm Packages](https://gitcode.com/openharmony-tpc/docs/blob/master/OpenHarmony_har_usage.md)
 
 ## Usage Instructions
 
@@ -88,49 +90,51 @@ SpinKitView({mStyle?:Style,mColor?:ResourceColor,mSize?:SizeStyle \| number})
 
 Create a SpinKitView loading animation.
 
-| **Name** | Type                  | **Required** | **Description**                                                                                                                                    |
-|--------|---------------------|:----------:|------------------------------------------------------------------------------------------------------------------------------------------------|
-| mStyle | Style               |    No      | Enumeration style type, such as Style.ROTATING_PLANE, Style.DOUBLE_BOUNCE, Style.WAVE, Style.WANDERING_CUBES, Style.PULSE, etc.                            |
-| mColor | ResourceColor       |    No      | Color of SpinKit, default is "#333" dark gray                                                                                                        |
-| mSize  | SizeStyle \| number |    No      | Set the size of SpinKit, accepting two data types: SizeStyle and number.<br />SizeStyle: enumeration style type, SizeStyle.SMALL, SizeStyle.LARGE, SizeStyle.NORMAL, default value is SizeStyle.NORMAL, size 40.<br /> |
+| **Name** | Type                | **Required** | **Description**                                                                                                                                                                                                        |
+|----------|---------------------|:------------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| mStyle   | Style               |      No      | Enumeration style type, such as Style.ROTATING_PLANE, Style.DOUBLE_BOUNCE, Style.WAVE, Style.WANDERING_CUBES, Style.PULSE, etc.                                                                                        |
+| mColor   | ResourceColor       |      No      | Color of SpinKit, default is "#333" dark gray                                                                                                                                                                          |
+| mSize    | SizeStyle \| number |      No      | Set the size of SpinKit, accepting two data types: SizeStyle and number.<br />SizeStyle: enumeration style type, SizeStyle.SMALL, SizeStyle.LARGE, SizeStyle.NORMAL, default value is SizeStyle.NORMAL, size 40.<br /> |
 
 Style enumeration description
 
 Animation style enumeration
 
-| Name                  | Value | Description                     |
-|---------------------|-------|---------------------------------|
-| ROTATING_PLANE      | 0     | Rotating plane animation        |
-| DOUBLE_BOUNCE       | 1     | Double bounce animation         |
-| WAVE                | 2     | Wave animation                  |
-| WANDERING_CUBES     | 3     | Wandering cubes animation       |
-| PULSE               | 4     | Pulse animation                 |
-| CHASING_DOTS        | 5     | Chasing dots animation          |
-| THREE_BOUNCE        | 6     | Three bounce animation          |
+| Name                | Value | Description                             |
+|---------------------|-------|-----------------------------------------|
+| ROTATING_PLANE      | 0     | Rotating plane animation                |
+| DOUBLE_BOUNCE       | 1     | Double bounce animation                 |
+| WAVE                | 2     | Wave animation                          |
+| WANDERING_CUBES     | 3     | Wandering cubes animation               |
+| PULSE               | 4     | Pulse animation                         |
+| CHASING_DOTS        | 5     | Chasing dots animation                  |
+| THREE_BOUNCE        | 6     | Three bounce animation                  |
 | CIRCLE              | 7     | Fade + scale circular loading animation |
-| CUBE_GRID           | 8     | Cube grid animation             |
-| FADING_CIRCLE       | 9     | Fading circle loading animation |
-| FOLDING_CUBE        | 10    | Folding cube animation          |
-| ROTATING_CIRCLE     | 11    | Rotating circle animation       |
-| MULTIPLE_PULSE      | 12    | Multiple pulse animation        |
-| PULSE_RING          | 13    | Pulse ring animation            |
-| MULTIPLE_PULSE_RING | 14    | Multiple pulse ring animation   |
+| CUBE_GRID           | 8     | Cube grid animation                     |
+| FADING_CIRCLE       | 9     | Fading circle loading animation         |
+| FOLDING_CUBE        | 10    | Folding cube animation                  |
+| ROTATING_CIRCLE     | 11    | Rotating circle animation               |
+| MULTIPLE_PULSE      | 12    | Multiple pulse animation                |
+| PULSE_RING          | 13    | Pulse ring animation                    |
+| MULTIPLE_PULSE_RING | 14    | Multiple pulse ring animation           |
 
 SizeStyle enumeration description
 
 Animation size enumeration
 
-| Name   | Value   | Description            |
-|--------|---------|------------------------|
-| SMALL  | small   | Small size. 24vp       |
-| NORMAL | normal  | Default size. 40vp     |
-| LARGE  | large   | Large size. 64vp       |
+| Name   | Value  | Description        |
+|--------|--------|--------------------|
+| SMALL  | small  | Small size. 24vp   |
+| NORMAL | normal | Default size. 40vp |
+| LARGE  | large  | Large size. 64vp   |
 
 ## About Obfuscation
 
-For code obfuscation, please refer to [Introduction to Code Obfuscation](https://docs.openharmony.cn/pages/v5.0/en/application-dev/arkts-utils/source-obfuscation.md)
+For code obfuscation, please refer
+to [Introduction to Code Obfuscation](https://docs.openharmony.cn/pages/v5.0/en/application-dev/arkts-utils/source-obfuscation.md)
 
-- If you want the SpinKit library not to be obfuscated during code obfuscation, you need to add the corresponding exclusion rules to the obfuscation rule configuration file obfuscation-rules.txt:
+- If you want the SpinKit library not to be obfuscated during code obfuscation, you need to add the corresponding
+  exclusion rules to the obfuscation rule configuration file obfuscation-rules.txt:
 
 ```
 -keep
@@ -185,12 +189,3 @@ Verified on the following versions:
 |     |---- README.md           # English installation and usage guide  
 |     |---- README_zh.md        # Chinese installation and usage guide  
 ````
-
-## Contributing
-
-If you encounter any issues during use, please submit an [Issue](https://gitcode.com/openharmony-sig/ohos_spin_kit/issues) to the component. Of course, we also welcome [PR](https://gitcode.com/openharmony-sig/ohos_spin_kit/pulls) contributions.
-
-## Open Source License
-
-This project is based on the [Apache License 2.0](https://gitcode.com/openharmony-sig/ohos_spin_kit/blob/master/LICENSE)
-, please feel free to enjoy and participate in open source.

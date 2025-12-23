@@ -33,7 +33,7 @@ export struct CubeGrid {
         }
         .backgroundColor(this.color)
         .scale({ x: item.scale, y: item.scale, z: 1 })
-      })
+      }, (item: SpinKit, index) => `${index}__${item}`)
     }
     .width(this.vm.width)
     .height(this.vm.height)

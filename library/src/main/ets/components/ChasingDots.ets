@@ -33,7 +33,7 @@ export struct ChasingDots {
             y: index == 0 ? 0 : (this.vm.width - this.dotSize)
           })
           .scale({ x: item.scale, y: item.scale })
-      })
+      }, (item: SpinKit, index) => `${index}__${item}`)
     }
     .width(this.vm.width)
     .height(this.vm.width)

@@ -30,7 +30,7 @@ export struct MultiplePulse {
           .borderRadius(this.vm.width)
           .backgroundColor(this.color)
           .scale({ x: item.scale, y: item.scale })
-      })
+      }, (item: SpinKit, index) => `${index}__${item}`)
     }
     .width(this.vm.width)
     .height(this.vm.height)

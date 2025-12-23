@@ -34,7 +34,7 @@ export struct FadingCircle {
           .fill(this.color)
           .position({ x: this.getXPosition(index), y: this.getYPosition(index) })
           .opacity(item.opacity)
-      })
+      }, (item: SpinKit, index) => `${index}__${item}`)
     }
     .width(this.vm.width)
     .height(this.vm.height)

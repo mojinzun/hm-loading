@@ -19,7 +19,7 @@ export struct StyleComponent {
               params: { selectedIndex: index }
             })
           })
-        })
+        }, (item: Style, index) => `${index}__${item}`)
       }
       .columnsTemplate('1fr 1fr 1fr 1fr')
       .rowsTemplate('1fr 1fr 1fr 1fr 1fr')

@@ -36,7 +36,7 @@ export struct WanderingCubes {
           .translate({ x: item.translateX, y: item.translateY })
           .scale({ x: item.scale, y: item.scale })
           .rotate({ angle: item.rotate })
-      })
+      }, (item: SpinKit, index) => `${index}__${item}`)
     }
     .width(this.vm.width)
     .height(this.vm.height)

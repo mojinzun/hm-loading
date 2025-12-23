@@ -35,7 +35,7 @@ export struct CircleLoading {
           .position({ x: this.getXPosition(index), y: this.getYPosition(index) })
           .opacity(item.opacity)
           .scale({ x: item.scale, y: item.scale })
-      })
+      }, (item: SpinKit, index) => `${index}__${item}`)
     }
     .width(this.vm.width)
     .height(this.vm.height)
