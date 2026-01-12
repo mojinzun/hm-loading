@@ -85,7 +85,7 @@ build() {
 
 ## 接口说明
 
-SpinKitView({mStyle?:Style,mColor?:ResourceColor,mSize?:SizeStyle \| number})
+SpinKitView({mStyle?:Style,mColor?:ResourceColor,mSize?:SizeStyle | number})
 
 创建SpinKitView加载动画。
 

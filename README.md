@@ -86,7 +86,7 @@ For more detailed usage, please refer to the implementation of the open source l
 
 ## Interface Description
 
-SpinKitView({mStyle?:Style,mColor?:ResourceColor,mSize?:SizeStyle \| number})
+SpinKitView({mStyle?:Style,mColor?:ResourceColor,mSize?:SizeStyle | number})
 
 Create a SpinKitView loading animation.
 
