@@ -105,6 +105,10 @@
                         desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
                         name="*.txt"
                         type="filename"/>
+                <filteritem
+                        desc="继承原组件MIT许可证，不手动修改"
+                        name="LICENSE"
+                        type="filename"/>
             </filefilter>
         </filefilterlist>
         <policylist>
