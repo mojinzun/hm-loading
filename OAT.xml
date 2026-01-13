@@ -14,6 +14,10 @@
                         name="hvigorfile.ts"
                         type="filename"/>
                 <filteritem
+                        desc="版权文件，无需修改"
+                        name="LICENSE"
+                        type="filename"/>
+                <filteritem
                         desc="版权免责声明文件，无需修改"
                         name="NOTICE"
                         type="filename"/>
@@ -48,6 +52,10 @@
                 <filteritem
                         desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
                         name="hvigorfile.ts"
+                        type="filename"/>
+                <filteritem
+                        desc="版权文件，无需修改"
+                        name="LICENSE"
                         type="filename"/>
                 <filteritem
                         desc="版权免责声明文件，无需修改"
@@ -90,6 +98,10 @@
                         name="*.jpg"
                         type="filename"/>
                 <filteritem
+                        desc="直接使用的资源文件"
+                        name="*.gif"
+                        type="filename"/>
+                <filteritem
                         desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
                         name="*.txt"
                         type="filename"/>
@@ -100,13 +112,10 @@
                     desc="协议相关策略"
                     name="projectPolicy">
                 <policyitem
-                        desc="原开源项目的LICENSE, 类似于MIT licenses, 符合开源要求"
-                        filefilter="copyrightPolicyFilter"
-                        group="defaultGroup"
-                        name="Copyright (c) 2022 HUAWEI"
+                        desc="继承原组件MIT许可证"
+                        name="MIT"
                         path=".*"
-                        rule="may"
-                        type="copyright"/>
+                        type="license"/>
             </policy>
         </policylist>
     </oatconfig>
